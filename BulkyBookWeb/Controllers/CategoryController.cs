@@ -43,6 +43,7 @@ namespace BulkyBookWeb.Controllers
             //}
             _db.Categories.Add(obj); // not saved to the database
             _db.SaveChanges(); // saved to the database
+            TempData["success"] = "Data Created successfully.";
             return RedirectToAction("Index"); // looks for action inside the same controller
             
             // to redirect to another action in another controller we feed the method
@@ -77,6 +78,7 @@ namespace BulkyBookWeb.Controllers
             _db.Categories.Update(obj); // not saved to the database
 
             _db.SaveChanges(); // saved to the database
+            TempData["success"] = "Data Updated successfully.";
             return RedirectToAction("Index"); // looks for action inside the same controller
 
             // to redirect to another action in another controller we feed the method
@@ -112,6 +114,7 @@ namespace BulkyBookWeb.Controllers
             _db.Categories.Remove(category); // not saved to the database
 
             _db.SaveChanges(); // saved to the database
+            TempData["success"] = "Data Deleted successfully.";
             return RedirectToAction("Index"); // looks for action inside the same controller
 
             // to redirect to another action in another controller we feed the method
