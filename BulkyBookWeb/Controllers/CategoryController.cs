@@ -48,6 +48,61 @@ namespace BulkyBookWeb.Controllers
             // to redirect to another action in another controller we feed the method
             // the controller name ("Action","Controller")
         }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0) return NotFound();
+
+            var category = _db.Categories.SingleOrDefault(c => c.Id == id);
+
+            if (category == null) return NotFound();
+
+            return View(category);
+        }
+
+
+        // Post
+        [HttpPost]
+        [ValidateAntiForgeryToken] // not required
+        public IActionResult Edit(Category obj)
+        {
+            if (obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("name", "Name and Display Order cannot have the same value.");
+            }
+            if (!ModelState.IsValid) // Is tested in client
+            {
+                return View(obj);
+            }
+            _db.Categories.Update(obj); // not saved to the database
+
+            _db.SaveChanges(); // saved to the database
+            return RedirectToAction("Index"); // looks for action inside the same controller
+
+            // to redirect to another action in another controller we feed the method
+            // the controller name ("Action","Controller")
+        }
+
+
+
+        // Post
+        [HttpPost]
+        [ValidateAntiForgeryToken] // not required
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0) return NotFound();
+
+            var category = _db.Categories.SingleOrDefault(c => c.Id == id);
+
+            if (category == null) return NotFound();
+            _db.Categories.Remove(category); // not saved to the database
+
+            _db.SaveChanges(); // saved to the database
+            return RedirectToAction("Index", new { id = 0}); // looks for action inside the same controller
+
+            // to redirect to another action in another controller we feed the method
+            // the controller name ("Action","Controller")
+        }
     }
 }
 
