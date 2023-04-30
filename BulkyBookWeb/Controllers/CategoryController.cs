@@ -35,12 +35,12 @@ namespace BulkyBookWeb.Controllers
         {
             if (obj.Name == obj.DisplayOrder.ToString())
             {
-                ModelState.AddModelError("name","Name and Display Order cannot have the same value.");
+                ModelState.AddModelError("name", "Name and Display Order cannot have the same value.");
             }
-            if (!ModelState.IsValid)
-            {
-                return View(obj);
-            }
+            //if (!ModelState.IsValid) // Is tested in client
+            //{
+            //    return View(obj);
+            //}
             _db.Categories.Add(obj); // not saved to the database
             _db.SaveChanges(); // saved to the database
             return RedirectToAction("Index"); // looks for action inside the same controller

@@ -6,11 +6,22 @@
             <h2 class="text-primary">Create Category</h2>
             <hr/>
         </div>
+
         <div asp-validation-summary="All" class="text-danger"></div> @*display all errors*@
+        
         <div class="mb-3">
             <label asp-for="Name"></label>
             <input asp-for="Name" class="form-control"/>
+            
+            @*
+                server side validation
+            *@
             <span asp-validation-for="Name" class="text-danger"></span>
+            
+            @*
+                For client side validation of data we can use the _ValidationsScriptsPartial 
+                partial view.
+            *@
         </div>
         <div class="mb-3">
             <label asp-for="DisplayOrder">Display Order</label>
@@ -23,3 +34,17 @@
         </a>
     </div>
 </form>
+
+            
+            
+@*
+    The _ValidationsScriptsPartial contains only scripts so we need to include them in a script section.
+    This forces the validations to be done in the client side.
+*@
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
