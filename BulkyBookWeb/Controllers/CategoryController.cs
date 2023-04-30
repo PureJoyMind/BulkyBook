@@ -83,11 +83,25 @@ namespace BulkyBookWeb.Controllers
             // the controller name ("Action","Controller")
         }
 
+        public IActionResult CheckDelete(int? id)
+        {
+            if (id == null || id == 0) return NotFound();
+
+            var category = _db.Categories.SingleOrDefault(c => c.Id == id);
+
+            if (category == null) return NotFound();
+
+            return View(category);
+        }
 
 
         // Post
         [HttpPost]
+        // If the name of the function wasn't Delete but we wanted
+        // to send our requests for this function to delete
+        // we can use [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken] // not required
+        
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) return NotFound();
@@ -98,7 +112,7 @@ namespace BulkyBookWeb.Controllers
             _db.Categories.Remove(category); // not saved to the database
 
             _db.SaveChanges(); // saved to the database
-            return RedirectToAction("Index", new { id = 0}); // looks for action inside the same controller
+            return RedirectToAction("Index"); // looks for action inside the same controller
 
             // to redirect to another action in another controller we feed the method
             // the controller name ("Action","Controller")

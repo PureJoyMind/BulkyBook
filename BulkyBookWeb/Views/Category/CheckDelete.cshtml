@@ -1,0 +1,41 @@
+﻿@model Category
+@*
+    To explicitly set the actuon which the form submits to we can use
+    <form method="post" asp-action="Edit"
+*@
+<form method="post" asp-action="Delete">
+    <input asp-for="Id" hidden/>
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Delete Category</h2>
+            <hr/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" disabled="" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="DisplayOrder"></label>
+            <input asp-for="DisplayOrder" disabled="" class="form-control"/>
+
+        </div>
+        <button type="submit" class="btn btn-danger" style="width:150px; height: 65px">Delete</button>
+        <a asp-controller="Category" asp-action="Index" class="btn btn-secondary btn-dark" style="width:150px; height: 65px">
+            Back to list
+        </a>
+    </div>
+</form>
+
+
+@*
+    The _ValidationsScriptsPartial contains only scripts so we need to include them in a script section.
+    This forces the validations to be done in the client side.
+*@
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
